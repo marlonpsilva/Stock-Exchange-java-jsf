@@ -8,5 +8,5 @@ target/
 .classpath
 .project
 .settings
-
+bin/.gitignore
 

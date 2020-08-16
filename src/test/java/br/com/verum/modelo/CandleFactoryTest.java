@@ -71,7 +71,41 @@ public class CandleFactoryTest {
 		assertEquals(0.0, candle.getMaximo(), 0.000001);
 		assertEquals(0.0, candle.getAbertura(), 0.000001);
 		assertEquals(0.0, candle.getFechamento(), 0.000001);
-		assertEquals(0.0, candle.getVolume(), 0.000001);
+		assertEquals(0.0, candle.getVolume(), 0.000001);	
+	}
+	
+	@Test
+	public void negociacaoDeTresDiasDiferentesGeraTresCandlesDiferentes() {
 		
+		LocalDateTime hoje = LocalDateTime.now();
+		
+		Negociacao negociacao1 = new Negociacao(40.0, 10, hoje);
+		Negociacao negociacao2 = new Negociacao(35.0, 10, hoje);
+		Negociacao negociacao3 = new Negociacao(45.0, 10, hoje);
+		
+		LocalDateTime amanha = hoje.plusDays(1);
+		
+		Negociacao negociacao4 = new Negociacao(10.0, 10, amanha);
+		Negociacao negociacao5 = new Negociacao(30.0, 10, amanha);
+		Negociacao negociacao6 = new Negociacao(20.0, 10, amanha);
+		
+		LocalDateTime depoisDeAmanha = amanha.plusDays(1);
+		
+		Negociacao negociacao7 = new Negociacao(60.0, 10, depoisDeAmanha);
+		Negociacao negociacao8 = new Negociacao(40.0, 10, depoisDeAmanha);
+		Negociacao negociacao9 = new Negociacao(70.0, 10, depoisDeAmanha);
+		
+		List<Negociacao> negociacoes = Arrays.asList(negociacao1, negociacao2, negociacao3, negociacao4,
+				negociacao5, negociacao6, negociacao7, negociacao8, negociacao9);
+		
+		
+		CandleFactory fabrica = new CandleFactory();
+		
+		List<Candle> candles = fabrica.constroiCandles(negociacoes);
+				
+		assertEquals(3, candles.size());
+		assertTrue(negociacoes.get(0).isMesmoDia(candles.get(0).getData()));
+		assertTrue(negociacoes.get(3).isMesmoDia(candles.get(1).getData()));
+		assertTrue(negociacoes.get(6).isMesmoDia(candles.get(2).getData()));
 	}
 }

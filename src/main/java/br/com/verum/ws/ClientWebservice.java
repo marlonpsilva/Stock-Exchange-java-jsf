@@ -31,15 +31,4 @@ public class ClientWebservice {
 		}
 
 	}
-	
-	public static void main(String[] args) {
-		
-		ClientWebservice ws = new ClientWebservice();
-		
-		List<Negociacao> negociacoes = ws.getNegociacoes();
-		
-		for (Negociacao negociacao : negociacoes) {
-			System.out.println(negociacao.getPreco());
-		}
-	}
 }

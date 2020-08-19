@@ -9,7 +9,8 @@
 	<title>VERUM</title>
 </h:head>
 <h:body>
-
+	
+	<p:chart type="line" model="#{verumBean.modeloGrafico}"/>
 	<h:form>
 		<p:dataTable var="negociacao" value="#{verumBean.negociacoes}"
 			paginator="true" rows="10">

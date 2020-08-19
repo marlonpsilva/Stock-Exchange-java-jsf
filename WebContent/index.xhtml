@@ -9,8 +9,26 @@
 	<title>VERUM</title>
 </h:head>
 <h:body>
-	
-	<p:chart type="line" model="#{verumBean.modeloGrafico}"/>
+
+	<h:form>
+		<h:panelGrid columns="5">
+			<h:outputLabel value="Media:" />
+			<p:selectOneButton value="#{verumBean.nomeMedia}">
+				<f:selectItem itemLabel="Simples" itemValue="MediaMovelSimples" />
+				<f:selectItem itemLabel="Ponderada" itemValue="MediaMovelPonderada" />
+			</p:selectOneButton>
+
+			<h:outputLabel value="Indicador Base:" />
+			<p:selectOneButton value="#{verumBean.nomeIndicadorBase}">
+				<f:selectItem itemLabel="Abertura" itemValue="IndicadorAbertura" />
+				<f:selectItem itemLabel="Fechamento" itemValue="IndicadorFechamento" />
+			</p:selectOneButton>
+			<p:commandButton value="Gerar Grafico"
+				action="#{verumBean.geraGrafico}" update=":grafico" />
+		</h:panelGrid>
+	</h:form>
+
+	<p:chart id="grafico" type="line" model="#{verumBean.modeloGrafico}" />
 	<h:form>
 		<p:dataTable var="negociacao" value="#{verumBean.negociacoes}"
 			paginator="true" rows="10">

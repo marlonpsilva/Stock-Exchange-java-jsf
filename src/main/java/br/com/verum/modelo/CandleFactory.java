@@ -18,10 +18,11 @@ public class CandleFactory {
 		for (Negociacao negociacao : negociacoes) {
 			volume += negociacao.getVolume();
 
-			if (negociacao.getPreco() > maximo) {
-				maximo = negociacao.getPreco();
-			} else if (negociacao.getPreco() < minimo) {
-				minimo = negociacao.getPreco();
+			double preco = negociacao.getPreco();
+			if (preco > maximo) {
+				maximo = preco;
+			} else if (preco < minimo) {
+				minimo = preco;
 			}
 		}
 
@@ -31,25 +32,28 @@ public class CandleFactory {
 
 	public List<Candle> constroiCandles(List<Negociacao> negociacoes) {
 		List<Candle> candles = new ArrayList<Candle>();
-		
+
 		List<Negociacao> negociacaoDoDia = new ArrayList<Negociacao>();
-		
+
 		LocalDateTime dataAtual = negociacoes.get(0).getData();
 		for (Negociacao negociacao : negociacoes) {
-			
-			if(negociacao.isMesmoDia(dataAtual)) {
+
+			if (negociacao.isMesmoDia(dataAtual)) {
 				negociacaoDoDia.add(negociacao);
-			}else {
-				Candle candle  = geraCandleParaData(negociacaoDoDia, dataAtual);
-				candles.add(candle);
+			} else {
+				geraAdicionaCandle(candles, negociacaoDoDia, dataAtual);
 				negociacaoDoDia = new ArrayList<Negociacao>();
 				dataAtual = negociacao.getData();
 			}
 		}
-		
-		Candle candle  = geraCandleParaData(negociacaoDoDia, dataAtual);
-		candles.add(candle);
+
+		geraAdicionaCandle(candles, negociacaoDoDia, dataAtual);
 		return candles;
+	}
+
+	private void geraAdicionaCandle(List<Candle> candles, List<Negociacao> negociacaoDoDia, LocalDateTime dataAtual) {
+		Candle candle = geraCandleParaData(negociacaoDoDia, dataAtual);
+		candles.add(candle);
 	}
 
 }

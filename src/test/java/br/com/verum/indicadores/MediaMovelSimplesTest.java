@@ -14,7 +14,7 @@ public class MediaMovelSimplesTest {
 
 		SerieTemporal serie = GeradorDeSerie.criaSerie(1, 2, 3, 4, 5, 5, 5);
 
-		MediaMovelSimples mms = new MediaMovelSimples();
+		Indicador mms = new MediaMovelSimples();
 
 		assertEquals(2.0, mms.calcula(2, serie), 0.000001);
 		assertEquals(3.0, mms.calcula(3, serie), 0.000001);
